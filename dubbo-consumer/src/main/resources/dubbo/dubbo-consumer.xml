@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://code.alibabatech.com/schema/dubbo
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 提供方应用信息，用于计算依赖关系 -->
+    <dubbo:application name="${spring.application.name}"  />
+
+    <!-- 消费者超时时间: 5s -->
+    <dubbo:consumer check="false" timeout="${dubbo.consumer.timeout}" />
+
+    <!-- 使用zookeeper广播注册中心暴露服务地址 -->
+    <dubbo:registry id="zk-registry" address="${zookeeper.address}" protocol="zookeeper" file="${dubbo.cache}"/>
+
+    <!-- 监控中心配置，用于配置连接监控中心相关信息，可选。-->
+    <dubbo:monitor protocol="registry"/>
+
+    <!-- 增加引用远程服务配置 可以和本地bean一样使用demoService -->
+    <dubbo:reference id="demoService" interface="com.feizi.dubbo.api.DemoService" registry="zk-registry"/>
+</beans>
