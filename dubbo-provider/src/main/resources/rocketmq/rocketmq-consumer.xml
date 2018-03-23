@@ -8,7 +8,7 @@
     <bean id="orderConsumerListener"  class="com.feizi.dubbo.rocketmq.consumer.OrderConsumerListener"/>
 
     <!-- 流程任务Topic -->
-    <bean id="createTaskTopicConsumer" class="com.touna.loan.common.service.rocketmq.MQConsumer" init-method="start" destroy-method="shutdown">
+    <bean id="createTaskTopicConsumer" class="com.feizi.rocketmq.common.service.rocketmq.MQConsumer" init-method="start" destroy-method="shutdown">
         <!-- TODO: 配置消费者组 -->
         <constructor-arg value="order_consumer_group" index="0" />
         <!-- TODO: 设置消费topic -->
